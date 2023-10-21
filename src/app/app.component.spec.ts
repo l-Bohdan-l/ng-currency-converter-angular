@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'ng-currency-converter-angular'`, () => {
+  it(`should have as title 'currencyConverter'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('ng-currency-converter-angular');
+    expect(app.title).toEqual('currencyConverter');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('ng-currency-converter-angular app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('currencyConverter app is running!');
   });
 });
