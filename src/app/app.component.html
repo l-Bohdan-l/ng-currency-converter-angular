@@ -47,7 +47,13 @@
           min="0"
           required
         />
-        <div *ngIf="currencyForm.touched && currencyForm.invalid">
+        <div
+          *ngIf="
+            currencyForm.touched &&
+            currencyForm.invalid &&
+            currencyForm.get('currencyFromValue')?.invalid
+          "
+        >
           <p
             *ngIf="
               currencyForm.get('currencyFromValue')?.invalid &&
@@ -66,7 +72,7 @@
             "
             class="alertMsg"
           >
-            Minimal allowed value is 1
+            Minimal allowed value is 0
           </p>
         </div>
         <label class="visually-hidden" for="currencyFrom">Currency</label>
@@ -83,7 +89,13 @@
             {{ currency }}
           </option>
         </select>
-        <div *ngIf="currencyForm.touched && currencyForm.invalid">
+        <div
+          *ngIf="
+            currencyForm.touched &&
+            currencyForm.invalid &&
+            currencyForm.get('changeFrom')?.invalid
+          "
+        >
           <p
             *ngIf="
               currencyForm.get('changeFrom')?.invalid &&
@@ -107,7 +119,13 @@
           (input)="handleChange('convertTo')"
           formControlName="currencyToValue"
         />
-        <div *ngIf="currencyForm.touched && currencyForm.invalid">
+        <div
+          *ngIf="
+            currencyForm.touched &&
+            currencyForm.invalid &&
+            currencyForm.get('currencyToValue')?.invalid
+          "
+        >
           <p
             *ngIf="
               currencyForm.get('currencyToValue')?.invalid &&
@@ -126,7 +144,7 @@
             "
             class="alertMsg"
           >
-            Minimal allowed value is 1
+            Minimal allowed value is 0
           </p>
         </div>
         <label class="visually-hidden" for="currencyTo">Currency</label>
@@ -143,7 +161,13 @@
             {{ currency }}
           </option>
         </select>
-        <div *ngIf="currencyForm.touched && currencyForm.invalid">
+        <div
+          *ngIf="
+            currencyForm.touched &&
+            currencyForm.invalid &&
+            currencyForm.get('changeTo')?.invalid
+          "
+        >
           <p
             *ngIf="
               currencyForm.get('changeTo')?.invalid &&
@@ -161,7 +185,6 @@
       Oops, something went wrong, <span>{{ errorMsg }}</span>
     </p>
   </div>
-  {{ currencyForm.value | json }}
 </section>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
@@ -172,68 +195,3 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 <router-outlet></router-outlet>
-
-<!-- <form #currencyForm="ngForm" class="form" autocomplete="off">
-      <div class="convertWrapper">
-        <label class="convertLabel" for="convertFrom">Convert From</label>
-        <input
-          class="convertAmountInput"
-          name="convertFrom"
-          type="number"
-          placeholder="1"
-          (input)="handleChange('convertFrom')"
-          [(ngModel)]="currencyModel.currencyFromValue"
-        />
-        <label class="visually-hidden" for="currencyFrom">Currency</label>
-        <select
-          class="selectStyled"
-          name="currencyFrom"
-          id="currencyFrom"
-          [(ngModel)]="currencyModel.changeFrom"
-          required
-          #convertFrom="ngModel"
-          (change)="handleChange('convertFrom')"
-        >
-          <option value="" disabled selected>--Choose Currency--</option>
-          <option *ngFor="let currency of currencies" value="{{ currency }}">
-            {{ currency }}
-          </option>
-        </select>
-        <div *ngIf="convertFrom.touched && convertFrom.invalid">
-          <p *ngIf="convertFrom.errors?.['required']" class="alertMsg">
-            Please choose currency
-          </p>
-        </div>
-      </div>
-      <div class="convertWrapper">
-        <label class="convertLabel" for="convertTo">Convert To</label>
-        <input
-          class="convertAmountInput"
-          name="convertTo"
-          type="number"
-          placeholder="1"
-          [(ngModel)]="currencyModel.currencyToValue"
-          (input)="handleChange('convertTo')"
-        />
-        <label class="visually-hidden" for="currencyTo">Currency</label>
-        <select
-          class="selectStyled"
-          name="currencyTo"
-          id="currencyTo"
-          [(ngModel)]="currencyModel.changeTo"
-          #convertTo="ngModel"
-          required
-          (change)="handleChange('convertTo')"
-        >
-          <option value="" disabled selected>--Choose Currency--</option>
-          <option *ngFor="let currency of currencies" value="{{ currency }}">
-            {{ currency }}
-          </option>
-        </select>
-        <div *ngIf="convertTo.touched && convertTo.invalid">
-          <p *ngIf="convertTo.errors?.['required']" class="alertMsg">
-            Please choose currency
-          </p>
-        </div>
-      </div>
-    </form> -->

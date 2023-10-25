@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { Currency } from './currency';
-import { FetchCurrencyService } from './fetch-currency.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { from } from 'rxjs';
+import { FetchCurrencyService } from '../service/fetch-currency.service';
 
 type ExchangeType = {
   currencyCodeA: number;
@@ -31,47 +26,36 @@ export class AppComponent implements OnInit {
   title = 'currencyConverter';
   currencies: string[] = ['USD', 'EUR', 'UAH'];
   supportedCodes: string[][] = [];
-  // currencyModel = new Currency(null, '', null, '');
-  // result = '';
   errorMsg = '';
   uahToUsdExchangeRate: ExchangeType | undefined;
   uahToEurExchangeRate: ExchangeType | undefined;
-  // exchangeFrom = '';
-  // exchangeTo = '';
-  // currencyForm = new FormGroup({
-  //   currencyFromValue: new FormControl(null),
-  //   changeFrom: new FormControl(''),
-  //   currencyToValue: new FormControl(null),
-  //   changeTo: new FormControl(''),
-  // });
   currencyForm = this.formBuilder.group({
-    currencyFromValue: [1, [Validators.required, Validators.min(1)]],
+    currencyFromValue: [1, [Validators.required, Validators.min(0)]],
     changeFrom: ['', Validators.required],
-    currencyToValue: [1, Validators.required],
+    currencyToValue: [1, [Validators.required, Validators.min(0)]],
     changeTo: ['', Validators.required],
   });
 
-  async ngOnInit(): Promise<void> {
-    // (await this._fetchServices.fetchExchange()).subscribe((data: any) => {
-    //   this.uahToUsdExchangeRate = data[0];
-    //   this.uahToEurExchangeRate = data[1];
+  ngOnInit(): void {
+    // from(this._fetchServices.fetchExchange()).subscribe({
+    //   next: (data: any) => {
+    //     this.uahToUsdExchangeRate = data[0];
+    //     this.uahToEurExchangeRate = data[1];
+    //   },
     // });
-    // (await this._fetchServices.fetchCurrency()).subscribe((data: any) => {
-    //   this.supportedCodes = [...data.supported_codes];
-    //   this.supportedCodes.map((code: any) => {
-    //     this.currencies.push(code[0]);
-    //   });
+    // from(this._fetchServices.fetchCurrency()).subscribe({
+    //   next: (data: any) => {
+    //     this.supportedCodes = [...data.supported_codes];
+    //     this.supportedCodes.map((code: any) => {
+    //       this.currencies.push(code[0]);
+    //     });
+    //   },
     // });
   }
 
-  async handleChange(convert: any) {
-    console.log('change', this.currencyForm);
+  handleChange(convert: any) {
     this.errorMsg = '';
     if (
-      // !this.currencyModel.currencyToValue ||
-      // !this.currencyModel.changeFrom ||
-      // !this.currencyModel.changeTo ||
-      // !this.currencyModel.currencyFromValue
       !this.currencyForm.value.changeFrom ||
       !this.currencyForm.value.changeTo ||
       !this.currencyForm.value.currencyFromValue ||
@@ -79,18 +63,15 @@ export class AppComponent implements OnInit {
     ) {
       return;
     }
-    console.log('after empty');
     if (convert === 'convertFrom') {
-      console.log('convertFrom');
-      (
-        await this._fetchServices.fetchConvertedCurrency(
+      from(
+        this._fetchServices.fetchConvertedCurrency(
           this.currencyForm.value.currencyFromValue,
           this.currencyForm.value.changeFrom,
           this.currencyForm.value.changeTo
         )
       ).subscribe({
         next: (data: any) =>
-          // (this.currencyModel.currencyToValue = data.conversion_result),
           this.currencyForm.patchValue({
             currencyToValue: data.conversion_result,
           }),
@@ -99,16 +80,14 @@ export class AppComponent implements OnInit {
       return;
     }
     if (convert === 'convertTo') {
-      console.log('convertTo');
-      (
-        await this._fetchServices.fetchConvertedCurrency(
+      from(
+        this._fetchServices.fetchConvertedCurrency(
           this.currencyForm.value.currencyToValue,
           this.currencyForm.value.changeFrom,
           this.currencyForm.value.changeTo
         )
       ).subscribe({
         next: (data: any) =>
-          // (this.currencyModel.currencyFromValue = data.conversion_result),
           this.currencyForm.patchValue({
             currencyFromValue: data.conversion_result,
           }),
