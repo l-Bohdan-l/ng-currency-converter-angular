@@ -25,14 +25,14 @@ export class FormComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    // from(this._fetchServices.fetchCurrency()).subscribe({
-    //   next: (data: any) => {
-    //     this.supportedCodes = [...data.supported_codes];
-    //     this.supportedCodes.map((code: any) => {
-    //       this.currencies.push(code[0]);
-    //     });
-    //   },
-    // });
+    from(this._fetchServices.fetchCurrency()).subscribe({
+      next: (data: any) => {
+        this.supportedCodes = [...data.supported_codes];
+        this.supportedCodes.map((code: any) => {
+          this.currencies.push(code[0]);
+        });
+      },
+    });
   }
 
   handleChange(convert: any) {

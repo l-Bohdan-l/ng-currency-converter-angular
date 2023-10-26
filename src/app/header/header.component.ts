@@ -21,11 +21,11 @@ export class HeaderComponent implements OnInit {
   uahToUsdExchangeRate: ExchangeType | undefined;
   uahToEurExchangeRate: ExchangeType | undefined;
   ngOnInit(): void {
-    // from(this._fetchServices.fetchExchange()).subscribe({
-    //   next: (data: any) => {
-    //     this.uahToUsdExchangeRate = data[0];
-    //     this.uahToEurExchangeRate = data[1];
-    //   },
-    // });
+    from(this._fetchServices.fetchExchange()).subscribe({
+      next: (data: any) => {
+        this.uahToUsdExchangeRate = data[0];
+        this.uahToEurExchangeRate = data[1];
+      },
+    });
   }
 }
