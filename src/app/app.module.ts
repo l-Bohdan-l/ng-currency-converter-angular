@@ -7,10 +7,9 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FormComponent } from './form/form.component';
 import { ErrorMsgComponent } from './error-msg/error-msg.component';
-import { InputComponent } from './input/input.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FormComponent, ErrorMsgComponent, InputComponent],
+  declarations: [AppComponent, HeaderComponent, FormComponent, ErrorMsgComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
