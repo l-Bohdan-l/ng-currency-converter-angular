@@ -9,37 +9,18 @@
         placeholder="1"
         (input)="handleChange('convertFrom')"
         formControlName="currencyFromValue"
-        min="0"
         required
       />
-      <div
-        *ngIf="
-          currencyForm.touched &&
-          currencyForm.invalid &&
-          currencyForm.get('currencyFromValue')?.invalid
+      <app-error-msg
+        [formTouched]="currencyForm.touched"
+        [formIsInvalid]="currencyForm.invalid"
+        [currencyValueInvalid]="currencyForm.get('currencyFromValue')?.invalid"
+        [currencyValueTouched]="currencyForm.get('currencyFromValue')?.touched"
+        [currencyValueMinLength]="
+          currencyForm.get('currencyFromValue')?.errors?.['min']
         "
-      >
-        <p
-          *ngIf="
-              currencyForm.get('currencyFromValue')?.invalid &&
-              currencyForm.get('currencyFromValue')?.touched && 
-              currencyForm.get('currencyFromValue')?.errors?.['required']
-            "
-          class="alertMsg"
-        >
-          Please enter value
-        </p>
-        <p
-          *ngIf="
-              currencyForm.get('currencyFromValue')?.invalid &&
-              currencyForm.get('currencyFromValue')?.touched && 
-              currencyForm.get('currencyFromValue')?.errors?.['min']
-            "
-          class="alertMsg"
-        >
-          Minimal allowed value is 0
-        </p>
-      </div>
+        [currencyValueRequired]="currencyForm.get('currencyFromValue')?.errors?.['required']"
+      ></app-error-msg>
       <label class="visually-hidden" for="currencyFrom">Currency</label>
       <select
         class="selectStyled"
@@ -54,24 +35,13 @@
           {{ currency }}
         </option>
       </select>
-      <div
-        *ngIf="
-          currencyForm.touched &&
-          currencyForm.invalid &&
-          currencyForm.get('changeFrom')?.invalid
-        "
-      >
-        <p
-          *ngIf="
-              currencyForm.get('changeFrom')?.invalid &&
-              currencyForm.get('changeFrom')?.touched && 
-              currencyForm.get('changeFrom')?.errors?.['required']
-            "
-          class="alertMsg"
-        >
-          Please choose currency
-        </p>
-      </div>
+      <app-error-msg
+        [formTouched]="currencyForm.touched"
+        [formIsInvalid]="currencyForm.invalid"
+        [currencyInvalid]="currencyForm.get('changeFrom')?.invalid"
+        [currencyValueRequired]="currencyForm.get('changeFrom')?.errors?.['required']"
+        [currencyValueTouched]="currencyForm.get('changeFrom')?.touched"
+      ></app-error-msg>
     </div>
     <div class="convertWrapper">
       <label class="convertLabel" for="convertTo">Convert To</label>
@@ -80,38 +50,19 @@
         name="convertTo"
         type="number"
         placeholder="1"
-        min="0"
         (input)="handleChange('convertTo')"
         formControlName="currencyToValue"
       />
-      <div
-        *ngIf="
-          currencyForm.touched &&
-          currencyForm.invalid &&
-          currencyForm.get('currencyToValue')?.invalid
+      <app-error-msg
+        [formTouched]="currencyForm.touched"
+        [formIsInvalid]="currencyForm.invalid"
+        [currencyValueInvalid]="currencyForm.get('currencyToValue')?.invalid"
+        [currencyValueTouched]="currencyForm.get('currencyToValue')?.touched"
+        [currencyValueMinLength]="
+          currencyForm.get('currencyToValue')?.errors?.['min']
         "
-      >
-        <p
-          *ngIf="
-              currencyForm.get('currencyToValue')?.invalid &&
-              currencyForm.get('currencyToValue')?.touched && 
-              currencyForm.get('currencyToValue')?.errors?.['required']
-            "
-          class="alertMsg"
-        >
-          Please enter value
-        </p>
-        <p
-          *ngIf="
-              currencyForm.get('currencyToValue')?.invalid &&
-              currencyForm.get('currencyToValue')?.touched && 
-              currencyForm.get('currencyToValue')?.errors?.['min']
-            "
-          class="alertMsg"
-        >
-          Minimal allowed value is 0
-        </p>
-      </div>
+        [currencyValueRequired]="currencyForm.get('currencyToValue')?.errors?.['required']"
+      ></app-error-msg>
       <label class="visually-hidden" for="currencyTo">Currency</label>
       <select
         class="selectStyled"
@@ -126,27 +77,14 @@
           {{ currency }}
         </option>
       </select>
-      <div
-        *ngIf="
-          currencyForm.touched &&
-          currencyForm.invalid &&
-          currencyForm.get('changeTo')?.invalid
-        "
-      >
-        <p
-          *ngIf="
-              currencyForm.get('changeTo')?.invalid &&
-              currencyForm.get('changeTo')?.touched && 
-              currencyForm.get('changeTo')?.errors?.['required']
-            "
-          class="alertMsg"
-        >
-          Please choose currency
-        </p>
-      </div>
+      <app-error-msg
+        [formTouched]="currencyForm.touched"
+        [formIsInvalid]="currencyForm.invalid"
+        [currencyInvalid]="currencyForm.get('changeTo')?.invalid"
+        [currencyValueRequired]="currencyForm.get('changeTo')?.errors?.['required']"
+        [currencyValueTouched]="currencyForm.get('changeTo')?.touched"
+      ></app-error-msg>
     </div>
   </form>
-  <p *ngIf="errorMsg">
-    Oops, something went wrong, <span>{{ errorMsg }}</span>
-  </p>
+  <app-error-msg [errorMsg]="errorMsg"></app-error-msg>
 </div>

@@ -1,1 +1,25 @@
-<p>header works!</p>
+<header class="header">
+  <h2 class="headerTitle">Exchange rate today</h2>
+  <div class="headerExchange">
+    <p>USD</p>
+    <p *ngIf="uahToUsdExchangeRate?.rateBuy && uahToUsdExchangeRate?.rateSell">
+      {{ uahToUsdExchangeRate?.rateBuy }} / {{ uahToUsdExchangeRate?.rateSell }}
+    </p>
+    <p
+      *ngIf="!uahToUsdExchangeRate?.rateBuy && !uahToUsdExchangeRate?.rateSell"
+    >
+      Sorry, no Info
+    </p>
+  </div>
+  <div class="headerExchange">
+    <p>EUR</p>
+    <p *ngIf="uahToUsdExchangeRate?.rateBuy && uahToUsdExchangeRate?.rateSell">
+      {{ uahToEurExchangeRate?.rateBuy }} / {{ uahToEurExchangeRate?.rateSell }}
+    </p>
+    <p
+      *ngIf="!uahToUsdExchangeRate?.rateBuy && !uahToUsdExchangeRate?.rateSell"
+    >
+      Sorry, no Info
+    </p>
+  </div>
+</header>

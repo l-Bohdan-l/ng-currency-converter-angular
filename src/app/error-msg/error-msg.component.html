@@ -1,0 +1,33 @@
+<div
+  *ngIf="
+    (formTouched && formIsInvalid && currencyValueInvalid) ||
+    currencyInvalid ||
+    errorMsg
+  "
+>
+  <p
+    *ngIf="
+      currencyValueInvalid && currencyValueTouched && currencyValueRequired
+    "
+    class="alertMsg"
+  >
+    Please enter value
+  </p>
+  <p
+    *ngIf="
+      currencyValueInvalid && currencyValueTouched && currencyValueMinLength
+    "
+    class="alertMsg"
+  >
+    Minimal allowed value is 0
+  </p>
+  <p
+    *ngIf="currencyInvalid && currencyValueTouched && currencyValueRequired"
+    class="alertMsg"
+  >
+    Please choose currency
+  </p>
+  <p *ngIf="errorMsg">
+    Oops, something went wrong, <span>{{ errorMsg }}</span>
+  </p>
+</div>
